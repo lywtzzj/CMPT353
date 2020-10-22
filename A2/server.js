@@ -19,9 +19,9 @@ app.post('/save', (req, res) => {
   var fileanme = 'feedback.txt'
 
   // debugger
-  const {topic, name, comment} = req.body;
+  const {topic, data} = req.body;
   // TODO write to file (maybe using fs)
-  fs.writeFileSync('./' + fileanme, topic + ', ' + name + ', ' + comment + '\n', {flag: 'a+'}, err => {
+  fs.writeFileSync('./' + fileanme, topic + ', ' + data + '\n', {flag: 'a+'}, err => {
     if (err) {
       console.error(err)
       return      
