@@ -21,7 +21,7 @@ app.post('/save', (req, res) => {
   // debugger
   const {topic, data} = req.body;
   // TODO write to file (maybe using fs)
-  fs.writeFileSync('./' + fileanme, topic + ', ' + data + '\n', {flag: 'a+'}, err => {
+  fs.writeFileSync('./' + fileanme, topic + ', ' + data + ','+ Date.now() + '\n', {flag: 'a+'}, err => {
     if (err) {
       console.error(err)
       return      
