@@ -16,20 +16,21 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/save', (req, res) => {
-  var fileanme = 'feedback.txt'
+    var fileanme = 'feedback.txt'
 
-  // debugger
-  const {topic, data} = req.body;
-  // TODO write to file (maybe using fs)
-  fs.writeFileSync('./' + fileanme, topic + ', ' + data + ','+ Date.now() + '\n', {flag: 'a+'}, err => {
-    if (err) {
-      console.error(err)
-      return      
-    }
-    res.send('ok');
-  });
-  
-  res.send('done');
+    // debugger
+    const { topic, data } = req.body;
+    // TODO write to file (maybe using fs)
+    fs.writeFileSync('./' + fileanme, topic + ', ' + data + ',' + new Date().toISOString() + '\n', { flag: 'a+' }, err => {
+        
+        if (err) {
+            console.error(err)
+            return
+        }
+        res.send('ok');
+    });
+
+    res.send('done');
 });
 
 app.use('/', express.static('./'));
