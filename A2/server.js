@@ -5,7 +5,7 @@
 
 // load package
 const express = require('express');
-const bodyParser = require("body-parser");
+const { json } = require("body-parser");
 const fs = require('fs');
 
 
@@ -13,26 +13,21 @@ const PORT = 8080;
 const HOST = '0.0.0.0';
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(json());
 
-app.post('/save', (req, res) => {
-    var fileanme = 'feedback.txt'
+app.post('/postmessage', (req, res) => {
+    var fileanme = 'posts.txt'
 
-    // debugger
-    const { topic, data } = req.body;
-    // TODO write to file (maybe using fs)
-    fs.writeFileSync('./' + fileanme, topic + ', ' + data + ',' + new Date().toISOString() + '\n', { flag: 'a+' }, err => {
-        
-        if (err) {
-            console.error(err)
-            return
-        }
-        res.send('ok');
-    });
+    const { topic, data, time = new Date().toISOString() } = req.body;
+    fs.appendFileSync(fileanme, `${topic}, ${data}, ${time}\n`);
 
     res.send('done');
 });
 
+app.get("/getmessage", (req, res) => {
+    fs.promises.readFile('./posts.txt', { encoding: 'utf8' })
+        .then(content => res.send(content));
+})
 app.use('/', express.static('./'));
 
 
