@@ -25,7 +25,11 @@
     <button onclick="sendRequest()">post</button>
 </body>
 <script>
+    let counter = 0;
     function sendRequest() {
+        
+        const startTime = new Date();
+        console.log(startTime);
         const topic = document.getElementById("topic");
         const data = document.getElementById("data");
         const message = { topic: topic.value, data: data.value }
@@ -37,6 +41,8 @@
         XMLHttpReq.onloadend = () => {
             if (XMLHttpReq.status === 200) {
                 alert("Successed")
+                const endTime = new Date();
+                console.log(endTime);
                 topic.value = '';
                 data.value = '';
                 getRequest();
@@ -44,8 +50,10 @@
                 window.alert("Page Asked is Error");
             }
         }
+        
     }
     function getRequest() {
+        // counter += 1;
         const XMLHttpReq = new XMLHttpRequest();
         XMLHttpReq.open("GET", "http://localhost:8080/getmessage", true);
         XMLHttpReq.send(null);
@@ -54,8 +62,12 @@
                 const content = document.getElementById("infos");
                 content.innerText = XMLHttpReq.responseText;
             }
-        }        
+        }
+    //    console.log(counter);
+       setTimeout(getRequest, 3000);
+       
     }
+    
     getRequest();
 
 </script>
