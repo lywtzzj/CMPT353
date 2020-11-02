@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posting</title>
+</head>
+
+<body>
+    <p id="content"></p>
+    <input id="topic-input" type="text" placeholder="enter the topic here" />
+    <br />
+    <input id="data-input" placeholder="enter the data here" />
+    <br />
+
+    <button onclick="post()">Post</button>
+
+    <script>
+        function get() {
+            const endpoint = 'http://localhost:8080';
+            fetch(`${endpoint}/getmessage`)
+                .then(async response => {
+                    const contentElement = document.querySelector('#content');
+                    contentElement.innerHTML = (await response.text()).replace(/\n/g, '<br/>');
+                })
+        }
+
+        function post() {
+            const endpoint = 'http://localhost:8080';
+
+            const topicInputElement = document.querySelector('#topic-input');
+            const dataInputElement = document.querySelector('#data-input');
+
+            const message = {
+                topic: topicInputElement.value,
+                data: dataInputElement.value
+            };
+
+            // const xmlHttpRequest = new XMLHttpRequest;
+            // xmlHttpRequest.open('POST', `${endpoint}/postmessage`, true);
+            // xmlHttpRequest.setRequestHeader('Content-Type', 'application/json');
+            // xmlHttpRequest.send(JSON.stringify(message));
+            // xmlHttpRequest.onloadend = () => {
+            //     if (xmlHttpRequest.status === 200) {
+            //         alert('Succed.');
+            //         topicInputElement.value = '';
+            //         dataInputElement.value = '';
+            //     } else {
+            //         alert('Failed.');
+            //     }
+            // };
+            fetch(`${endpoint}/postmessage`, {
+                method: 'POST',
+                body: JSON.stringify(message),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    alert('Succed.');
+                    topicInputElement.value = '';
+                    dataInputElement.value = '';
+                    get();
+                } else {
+                    alert('Failed.');
+                }
+            });
+        }
+
+        get();
+    </script>
+</body>
+
+</html>
