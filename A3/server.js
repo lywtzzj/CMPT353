@@ -89,7 +89,7 @@ app.get("/getmessageByTime", (req, res) => {
     //     .then(content => res.send(content));
     var data;
 
-    var sql = 'SELECT * FROM posts ORDER BY TIme;';
+    var sql = 'SELECT * FROM posts ORDER BY Time;';
     DBconnect.query(sql, function (err, result, fields) {
         if (err) throw err;
 
