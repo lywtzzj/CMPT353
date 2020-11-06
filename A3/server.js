@@ -17,21 +17,33 @@ app.use(json());
 
 
 
+// var DBconnect = mysql.createConnection({
+//     host: "localhost",
+//     port: "3306",
+//     user: "root",
+//     password: "Lyw114401",
+//     database: "assignment"
+// });
 var DBconnect = mysql.createConnection({
     host: "localhost",
     port: "3306",
     user: "root",
     password: "Lyw114401",
-    database: "assignment"
+    database: "fora_three"
 });
 DBconnect.connect(function (err) {
     if (err) console.log(err);
+    console.log("Connected!");
 
-    var sql = "CREATE TABLE post (Topic VARCHAR(50), Data VARCHAR(200), Time timestamp default now())";
-    DBconnect.query(sql, function (err, result) {
-        if (err) throw err;
-        console.log("Connected!");
-    });
+    // var sql = "create table posts (Topic VARCHAR(255), Data VARCHAR(255), Time timestamp default now())";
+    // DBconnect.query(sql, function (err, result) {
+    //     if (err) throw err;
+    //     console.log("Connected!");
+    // });
+    // DBconnect.query(function (err, result) {
+    //     if (err) throw err;
+    //     console.log("Connected!");
+    // });
 
     // res.send("ok");
 });
@@ -43,14 +55,17 @@ app.post('/postmessage', (req, res) => {
     const {
         topic,
         data,
-        time = new Date().toISOString()
+        // time = new Date()
+        // .toISOString()
     } = req.body;
     // fs.appendFileSync(fileanme, `${topic}, ${data}, ${time}\n`,
     //     { flags: 'a' }
     // );
 
-    var sql = "INSERT INTO posts (Topic, Data, Time) VALUES ("+ topic + "," + data + "," + time + ")";
-    // ")`${topic}, ${data}, ${time}`)";
+    var sql = "INSERT INTO posts (Topic, Data, Time) VALUES ('"+topic +"','"+data +"','" +new Date().toISOString() +"');";
+    // .toISOString()+");";
+    // + topic + "," + data + "," + time + ")";
+    // `${topic}, ${data}, ${time}`);
     DBconnect.query(sql, function (err, result) {
         if (err) throw err;
     });

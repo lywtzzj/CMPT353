@@ -1,11 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Q2</title>
 </head>
+
 <body>
-    
+    <h1>
+        Welcome to Q2
+    </h1>
+
+    <p>chat room</p>
+    <div id="infos">
+
+    </div>
+    <br />
+    <div>
+        <button onclick="getRequest()">time</button>
+        <button>topic</button>
+    </div>
+    <br />
+    <!-- <textarea></textarea>    -->
+    <input id="topic" type="text" placeholder="add topic"></input><br></br>
+    <br>
+    <input id="data" placeholder="add data" /><br />
+    <br />
+    <button onclick="sendRequest()">post</button>
 </body>
+<script>
+    let counter = 0;
+    function sendRequest() {
+
+        const startTime = new Date();
+        console.log(startTime);
+        const topic = document.getElementById("topic");
+        const data = document.getElementById("data");
+        const message = { topic: topic.value, data: data.value }
+        const XMLHttpReq = new XMLHttpRequest();
+        XMLHttpReq.open("POST", "http://localhost:8080/postmessage", true);
+        XMLHttpReq.setRequestHeader("Content-Type", "application/json");
+
+        XMLHttpReq.send(JSON.stringify(message));
+        XMLHttpReq.onloadend = () => {
+            if (XMLHttpReq.status === 200) {
+                alert("Successed")
+                const endTime = new Date();
+                console.log(endTime);
+                topic.value = '';
+                data.value = '';
+                getRequest();
+            } else {
+                window.alert("Page Asked is Error");
+            }
+        }
+
+    }
+    function getRequest() {
+        const XMLHttpReq = new XMLHttpRequest();
+        XMLHttpReq.open("GET", "http://localhost:8080/getmessage", true);
+        XMLHttpReq.send(null);
+        XMLHttpReq.onreadystatechange = function () {
+            if (XMLHttpReq.readyState == 4 && XMLHttpReq.status == 200) {
+                const content = document.getElementById("infos");
+                content.innerText = XMLHttpReq.responseText;
+            }
+        }
+        setTimeout(getRequest, 3000);
+
+    }
+
+    getRequest();
+
+</script>
+
 </html>
