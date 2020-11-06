@@ -29,7 +29,7 @@ var DBconnect = mysql.createConnection({
     port: "3306",
     user: "root",
     password: "Lyw114401",
-    database: "fora_three"
+    database: "assignment"
 });
 DBconnect.connect(function (err) {
     if (err) console.log(err);
