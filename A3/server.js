@@ -77,7 +77,31 @@ app.get("/getmessage", (req, res) => {
     //     .then(content => res.send(content));
     var data;
 
-    var sql = 'SELECT * FROM posts';
+    var sql = 'SELECT * FROM posts;';
+    DBconnect.query(sql, function (err, result, fields) {
+        if (err) throw err;
+
+        res.json(result);
+    })
+});
+app.get("/getmessageByTime", (req, res) => {
+    // fs.promises.readFile('./posts.txt', { encoding: 'utf8' })
+    //     .then(content => res.send(content));
+    var data;
+
+    var sql = 'SELECT * FROM posts ORDER BY TIme;';
+    DBconnect.query(sql, function (err, result, fields) {
+        if (err) throw err;
+
+        res.json(result);
+    })
+});
+app.get("/getmessageByTopic", (req, res) => {
+    // fs.promises.readFile('./posts.txt', { encoding: 'utf8' })
+    //     .then(content => res.send(content));
+    var data;
+
+    var sql = 'SELECT * FROM posts ORDER BY Topic;';
     DBconnect.query(sql, function (err, result, fields) {
         if (err) throw err;
 

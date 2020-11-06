@@ -6,20 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Q2</title>
 </head>
+<style>
+    #infos {
+        width: 700px;
+    }
+</style>
 
 <body>
     <h1>
         Welcome to Q2
     </h1>
 
+
     <p>chat room</p>
     <div id="infos">
-
     </div>
     <br />
     <div>
-        <button onclick="getRequest()">time</button>
-        <button>topic</button>
+        <button onclick="getRequestTime()">time</button>
+        <button onclick="getRequestTopic()">topic</button>
     </div>
     <br />
     <!-- <textarea></textarea>    -->
@@ -34,7 +39,7 @@
     function sendRequest() {
 
         const startTime = new Date();
-        console.log(startTime);
+        // console.log(startTime);
         const topic = document.getElementById("topic");
         const data = document.getElementById("data");
         const message = { topic: topic.value, data: data.value }
@@ -46,8 +51,8 @@
         XMLHttpReq.onloadend = () => {
             if (XMLHttpReq.status === 200) {
                 alert("Successed")
-                const endTime = new Date();
-                console.log(endTime);
+                // const endTime = new Date();
+                // console.log(endTime);
                 topic.value = '';
                 data.value = '';
                 getRequest();
@@ -57,18 +62,70 @@
         }
 
     }
+    function createDiv(element) {
+        const div = document.createElement('div');
+        div.innerHTML = element;
+        return div;
+    }
     function getRequest() {
         const XMLHttpReq = new XMLHttpRequest();
         XMLHttpReq.open("GET", "http://localhost:8080/getmessage", true);
-        XMLHttpReq.send(null);
+        XMLHttpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        XMLHttpReq.send();
+        XMLHttpReq.onreadystatechange = function () {
+            if (XMLHttpReq.readyState == 4 && XMLHttpReq.status == 200) {
+                //     const space = document.getElementById("infos");
+
+                const content = document.getElementById("infos");
+                content.innerText = XMLHttpReq.response;
+                //     // content.innerText = XMLHttpReq.response;
+                //     // document.getElementById('infos');
+                //     const content =
+                //     // XMLHttpReq.responseText; 
+                //     JSON.parse(this.responseText);
+                //     console.log(content);
+                //     for (const element in content) {
+                //         space.append(createDiv(element) );
+                //     }
+
+
+                // myObj = JSON.parse(XMLHttpReq.responseText);
+
+                // var table = "<table border='1' id='menu-table' >"
+                // for (x in myObj) {
+                //     table += "<tr> <td> " + myObj[x].topic + "</td> <td>" + myObj[x].data + "</td> </tr>";
+                // }
+                // table += "</table>"
+                // document.getElementById("infos").innerHTML = table;
+            }
+        }
+    }
+    function getRequestTime() {
+        const XMLHttpReq = new XMLHttpRequest();
+        XMLHttpReq.open("GET", "http://localhost:8080/getmessageByTime", true);
+        XMLHttpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        XMLHttpReq.send();
         XMLHttpReq.onreadystatechange = function () {
             if (XMLHttpReq.readyState == 4 && XMLHttpReq.status == 200) {
                 const content = document.getElementById("infos");
-                content.innerText = XMLHttpReq.responseText;
+                content.innerText = XMLHttpReq.response;
             }
         }
-        setTimeout(getRequest, 3000);
+        // setTimeout(getRequestTime, 3000);
+    }
 
+    function getRequestTopic() {
+        const XMLHttpReq = new XMLHttpRequest();
+        XMLHttpReq.open("GET", "http://localhost:8080/getmessageByTopic", true);
+        XMLHttpReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        XMLHttpReq.send();
+        XMLHttpReq.onreadystatechange = function () {
+            if (XMLHttpReq.readyState == 4 && XMLHttpReq.status == 200) {
+                const content = document.getElementById("infos");
+                content.innerText = XMLHttpReq.response;
+            }
+        }
+        // setTimeout(getRequestTopic, 3000);
     }
 
     getRequest();
