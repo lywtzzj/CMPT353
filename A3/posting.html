@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Q2</title>
 </head>
-<style>
+<!-- <style>
     #infos {
         width: 600px;
     }
-</style>
+</style> -->
 
 <body>
     <h1>
@@ -60,6 +60,7 @@
                 window.alert("Page Asked is Error");
             }
         }
+        // getRequest();
 
     }
     function createDiv(element) {
@@ -74,29 +75,14 @@
         XMLHttpReq.send();
         XMLHttpReq.onreadystatechange = function () {
             if (XMLHttpReq.readyState == 4 && XMLHttpReq.status == 200) {
-                //     const space = document.getElementById("infos");
+                document.getElementById("infos").innerHTML = "";
+                let space = document.getElementById("infos")
+                let content = JSON.parse(XMLHttpReq.responseText);
+                // console.log(content);
 
-                const content = document.getElementById("infos");
-                content.innerText = XMLHttpReq.response;
-                //     // content.innerText = XMLHttpReq.response;
-                //     // document.getElementById('infos');
-                //     const content =
-                //     // XMLHttpReq.responseText; 
-                //     JSON.parse(this.responseText);
-                //     console.log(content);
-                //     for (const element in content) {
-                //         space.append(createDiv(element) );
-                //     }
-
-
-                // myObj = JSON.parse(XMLHttpReq.responseText);
-
-                // var table = "<table border='1' id='menu-table' >"
-                // for (x in myObj) {
-                //     table += "<tr> <td> " + myObj[x].topic + "</td> <td>" + myObj[x].data + "</td> </tr>";
-                // }
-                // table += "</table>"
-                // document.getElementById("infos").innerHTML = table;
+                for (const iterator of content) {
+                    space.append(createDiv("Topic: " + iterator.Topic + " Data: " + iterator.Data + " Time: " + iterator.Time));
+                }
             }
         }
     }
@@ -107,8 +93,15 @@
         XMLHttpReq.send();
         XMLHttpReq.onreadystatechange = function () {
             if (XMLHttpReq.readyState == 4 && XMLHttpReq.status == 200) {
-                const content = document.getElementById("infos");
-                content.innerText = XMLHttpReq.response;
+                document.getElementById("infos").innerHTML = "";
+                let space = document.getElementById("infos")
+
+                let content = JSON.parse(XMLHttpReq.responseText);
+                // console.log(content);
+
+                for (const iterator of content) {
+                    space.append(createDiv("Topic: " + iterator.Topic + " Data: " + iterator.Data + " Time: " + iterator.Time));
+                }
             }
         }
         // setTimeout(getRequestTime, 3000);
@@ -121,8 +114,14 @@
         XMLHttpReq.send();
         XMLHttpReq.onreadystatechange = function () {
             if (XMLHttpReq.readyState == 4 && XMLHttpReq.status == 200) {
-                const content = document.getElementById("infos");
-                content.innerText = XMLHttpReq.response;
+                document.getElementById("infos").innerHTML = "";
+                let space = document.getElementById("infos")
+                let content = JSON.parse(XMLHttpReq.responseText);
+                // console.log(content);
+
+                for (const iterator of content) {
+                    space.append(createDiv("Topic: " + iterator.Topic + " Data: " + iterator.Data + " Time: " + iterator.Time));
+                }
             }
         }
         // setTimeout(getRequestTopic, 3000);
