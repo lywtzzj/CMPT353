@@ -1,0 +1,19 @@
+GET http://localhost:8080/menu HTTP/1.1
+
+###
+POST http://localhost:8080/menu HTTP/1.1
+content-type: application/json
+
+{
+    "name": "coffee1",
+    "unitPrice": "5"
+}
+
+###
+PUT http://localhost:8080/menu?id=2 HTTP/1.1
+content-type: application/json
+
+{
+    "unitPrice": "6",
+    "name": "coffee2"
+}
