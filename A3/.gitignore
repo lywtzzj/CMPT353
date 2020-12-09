@@ -5,3 +5,7 @@ report.pdf
 partA.txt
 package-lock.json
 package.json
+.idea
+.gitignore.swp
+report.pdf
+report.html
