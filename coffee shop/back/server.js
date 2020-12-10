@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import { userController, menuController, orderController } from "./controller/index.js";
 // import mysql from "mysql";
 
@@ -11,6 +12,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use('/', express.static('./'));
+app.use(cors());
 
 // add controllers
 userController(app);
