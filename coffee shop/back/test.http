@@ -1,4 +1,9 @@
+
+
+
 GET http://localhost:8080/menu HTTP/1.1
+
+
 
 ###
 POST http://localhost:8080/menu HTTP/1.1
@@ -9,6 +14,7 @@ content-type: application/json
     "unitPrice": "5"
 }
 
+
 ###
 PUT http://localhost:8080/menu?id=2 HTTP/1.1
 content-type: application/json
@@ -16,4 +22,55 @@ content-type: application/json
 {
     "unitPrice": "6",
     "name": "coffee2"
+}
+###
+POST http://localhost:8080/user/register HTTP/1.1
+content-type: application/json
+
+{
+    "username": "dfgdfgd@yahoo.com", 
+    "password": "124344fsdsf", 
+    "name": "bob",
+    "role": "staff"
+}
+###
+POST http://localhost:8080/user/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "lllyty@yahoo.com", 
+    "password": "1121aaa"
+}
+
+
+###
+POST http://localhost:8080/order HTTP/1.1
+content-type: application/json
+
+{
+    "userId": "3", 
+    "times": "09-12-2020", 
+    "ready": "not", 
+    "cancelled": "not", 
+    "list": "2 espresso and 1 tee"
+}
+
+###
+
+GET http://localhost:8080/order HTTP/1.1
+content-type: application/json
+
+{
+    "userId": "3"
+}
+###
+
+PUT  http://localhost:8080/order/sort HTTP/1.1
+
+###
+PUT  http://localhost:8080/order/ready HTTP/1.1
+content-type: application/json
+
+{
+    "id": "2"
 }
