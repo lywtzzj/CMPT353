@@ -14,7 +14,6 @@ export default (app) => {
         if (result == false) {
             res.send("the passwors is used")
         }
-        // console.log(result);
-        // res.json(getUser(new_user.password));
+        
     });
 }
