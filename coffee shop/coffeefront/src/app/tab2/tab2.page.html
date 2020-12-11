@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      order
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,33 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Tab </ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-item *ngIf="show">
+
+    <ion-list *ngIf="!isCustomer">
+      <ion-item *ngFor="let item of orderList">
+        <ion-label>order{{item.id}}: </ion-label>
+        <ion-label>{{item.content}}: </ion-label>
+        <ion-label color="primary" *ngIf="isReady(item)">ready</ion-label>
+        <ion-button color="primary" *ngIf="!isReady(item)" (click)=isCancelled(item)>cancel</ion-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="!isCustomer">
+      <ion-button (click)=sort()>sort</ion-button>
+      <ion-item *ngFor="let item of orderList">
+        <ion-label>order{{item.id}}:</ion-label>
+        <ion-item>{{item.content}}:</ion-item>
+        <ion-button (click)="Sready(item)">ready</ion-button>
+      </ion-item>
+    </ion-list>
+
+  </ion-item>
+
+
+
+
 </ion-content>

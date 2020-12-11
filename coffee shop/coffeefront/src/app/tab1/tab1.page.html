@@ -1,17 +1,55 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Menu
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Menu</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div *ngIf="!isCustomer">
+    <ion-list>
+      <ion-item *ngFor="let item of menuList">
+        <ion-item>{{item.name}}</ion-item>
+        <ion-item>{{item.unitPrice}}</ion-item>
+        <ion-item>
+          <ion-button size="small" (click)="reduceQuantity(item)" [disabled]="item.quantity <= 0">-</ion-button>
+          <ion-label>{{item.quantity}}</ion-label>
+          <ion-button size="small" (click)="addQuantity(item)">+</ion-button>
+        </ion-item>
+      </ion-item>
+    </ion-list>
+    <ion-button color="primary" (click)="submit()">Submit</ion-button>
+  </div>
+
+  <div *ngIf="!isCustomer">
+    <ion-list>
+      <ion-item *ngFor="let item of menuList">
+        <ion-label>{{item.name}}</ion-label>
+
+      <ion-item>
+        <ion-button size="small" (click)="priceReduce(item)" [disabled]="item.unitPrice <= 0">-</ion-button>
+        <ion-label>{{item.unitPrice}}</ion-label>
+        <ion-button size="small" (click)="priceAdd(item)">+</ion-button>
+      </ion-item>
+
+        <!-- <ion-button color="primary">Delete</ion-button> -->
+      </ion-item>
+    </ion-list>
+
+    <ion-item>
+
+      <ion-input id="inputName" placeholder="Enter name"></ion-input>
+      <ion-input id="inputPrice" placeholder="Enter price"></ion-input>
+      <ion-button color="primary" (click)="addMenuItem()">add</ion-button>
+    </ion-item>
+  </div>
+
 </ion-content>

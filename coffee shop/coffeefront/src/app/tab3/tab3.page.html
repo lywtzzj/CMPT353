@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,5 +13,44 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+
+  <ion-item *ngIf="!login">
+    <ion-list>
+      <ion-item>
+        <ion-label>User Name:  </ion-label>
+        <ion-input id="UName" placeholder="Enter Email">  </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Password:    </ion-label>
+        <ion-input id="password" placeholder="Enter Password">  </ion-input>
+      </ion-item>
+      <ion-item *ngIf="!exist">
+        <ion-label>Name: </ion-label>
+        <ion-input id="name" placeholder="Enter Name"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!exist">
+        <ion-label>Role: </ion-label>
+        <ion-input id="role" placeholder="Enter Role"></ion-input>
+      </ion-item>
+
+      <ion-item>
+
+        <ion-button color="primary" (click)="logIn()"> log in</ion-button>
+        <ion-button color="primary" (click)="register()">register</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-item>
+
+  <ion-card *ngIf="login">
+    <ion-card-header>
+      <ion-card-title>Tanks for your shopping</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      Welcomg to coffee shop 
+      Hope meet you next time
+    </ion-card-content>
+    <ion-button color="primary" (click)=logOut()> log out</ion-button>
+  </ion-card>
+
 </ion-content>
