@@ -6,7 +6,7 @@ export default (app) => {
     app.post(`${url}/login`, async (req, res) => {
         const user = req.body;
         // res.json(getUser(user.password));
-        res.json(await getUser(user))
+        res.json(await getUser(user));
     });
     app.post(`${url}/register`, async (req, res) => {
         const new_user = req.body;

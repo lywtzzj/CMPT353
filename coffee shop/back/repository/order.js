@@ -18,6 +18,9 @@ export const addOrder = async (add) => {
 export const sortOrder = async () => {
     return await query("SELECT * FROM `order` ORDER BY time");
 }
+export const getOrderStaff = async () => {
+    return await query("SELECT * FROM `order`");
+}
 export const readyOrder = async (ready) => {
     await query("UPDATE `order` SET ready = 'yes' WHERE id = "+ready.id);
 };

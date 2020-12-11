@@ -1,4 +1,4 @@
-import { getOrder, addOrder, sortOrder, readyOrder } from "../repository/order.js";
+import { getOrder, addOrder, sortOrder, readyOrder,getOrderStaff } from "../repository/order.js";
 const url = '/order';
 
 export default (app) => {
@@ -15,6 +15,10 @@ export default (app) => {
     app.put(`${url}/sort`, async (req, res) => {
         res.json(await sortOrder());
         res.send('staff sort');
+    });
+    app.put(`${url}/getOrderStaff`, async (req, res) => {
+        res.json(await getOrderStaff());
+        res.send('getOrderStaff');
     });
     app.put(`${url}/ready`, async (req, res) => {
         let ready = req.body;
